@@ -1,0 +1,55 @@
+<div class="root">
+  <form (ngSubmit)="onSubmit()" #todoForm="ngForm">
+
+    <div *ngIf="model.id !== 0" class="form-item">
+      ID: {{model.id}}
+    </div>
+
+    <div class="form-item">
+      <md-input-container>
+        <input mdInput name="title" required placeholder="やること" 
+          [(ngModel)]="model.title">
+      </md-input-container>
+    </div>
+
+    <div class="form-item">
+      <md-select placeholder="誰がやる" name="assigneeID" 
+        [(ngModel)]="model.assigneeID">
+        <md-option *ngFor="let p of people" [value]="p.id">{{ p.name }}</md-option>
+      </md-select>
+    </div>
+
+    <div class="form-item">
+      <md-slide-toggle name="active" [(ngModel)]="model.active">
+        有効にする
+      </md-slide-toggle>
+    </div>
+
+    <div class="form-item">
+      <button type="submit" md-raised-button [disabled]="!todoForm.form.valid">
+        Submit
+      </button>
+    </div>
+    
+  </form>
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Active</th>
+      <th>AssigneeID</th>
+  </thead>
+  <tbody>
+    <tr li *ngFor="let todo of todos">
+      <td>{{todo.id}}</td>
+      <td>{{todo.title}}</td>
+      <td>{{todo.active}}</td>
+      <td>{{todo.assigneeID}}</td>
+      <td><button md-button (click)="onEdit(todo.id)">編集</button></td>
+    </tr>
+  </tbody>
+</table>
+

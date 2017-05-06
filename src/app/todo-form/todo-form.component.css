@@ -1,0 +1,11 @@
+.root{
+    width: 300px;
+    margin: 0 auto;
+}
+.form-item{
+   margin: 10px 0; 
+}
+
+ul{
+    list-style-type: none;
+}
