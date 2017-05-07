@@ -13,9 +13,27 @@
     </div>
 
     <div class="form-item">
-      <md-select placeholder="誰がやる" name="assigneeID" 
-        [(ngModel)]="model.assigneeID">
-        <md-option *ngFor="let p of people" [value]="p.id">{{ p.name }}</md-option>
+      <md-input-container>
+        <input mdInput name="assignee" required placeholder="やるひと" 
+          [(ngModel)]="model.assignee"
+          [mdAutocomplete]="autoAssignee"
+          [formControl]="assigneeFormControl"
+        >
+      </md-input-container>
+
+      <md-autocomplete #autoAssignee="mdAutocomplete" [displayWith]="displayAssignee">
+        <md-option *ngFor="let p of filteredAssignee | async" [value]="p">
+            {{ p.name }}
+        </md-option>
+      </md-autocomplete>
+    </div>
+    
+    <div class="form-item">
+      <md-select placeholder="優先度" name="priority" 
+        [(ngModel)]="model.priority">
+        <md-option [value]="1">高</md-option>
+        <md-option [value]="2">中</md-option>
+        <md-option [value]="3">低</md-option>        
       </md-select>
     </div>
 
@@ -40,14 +58,16 @@
       <th>ID</th>
       <th>Title</th>
       <th>Active</th>
-      <th>AssigneeID</th>
+      <th>Priority</th>
+      <th>Assignee</th>
   </thead>
   <tbody>
     <tr li *ngFor="let todo of todos">
       <td>{{todo.id}}</td>
       <td>{{todo.title}}</td>
       <td>{{todo.active}}</td>
-      <td>{{todo.assigneeID}}</td>
+      <td>{{todo.priority}}</td>
+      <td>{{todo.assignee.name}}</td>
       <td><button md-button (click)="onEdit(todo.id)">編集</button></td>
     </tr>
   </tbody>

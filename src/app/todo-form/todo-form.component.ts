@@ -1,4 +1,6 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-todo-form',
@@ -12,14 +14,33 @@ export class TodoFormComponent implements OnInit {
   todos: TodoForm[] = [];
   model = new TodoForm(0, "", false);
 
-  people = [
+  people: Person[] = [
     {id: 1, name: "taro"},
     {id: 2, name: "jiro"},
     {id: 3, name: "ichiro"}
   ];
 
+  options = [ "あかさたな", "はまやらわ", "ををを" ];
+
+  // assigneeのauto complete
+  assigneeFormControl = new FormControl();
+  filteredAssignee: Observable<Person[]>;
+
   ngOnInit() {
+    this.filteredAssignee = this.assigneeFormControl.valueChanges
+         .startWith(null)
+         .map(val => val ? this.assigneeFilter(val) : this.people.slice());
+
+    this.assigneeFormControl.asyncValidator
   }
+  
+  assigneeFilter(val: string): Person[] {
+    return this.people.filter(p => new RegExp(`^${val}`, 'gi').test(p.name)); 
+  }
+
+  displayAssignee(person: Person): string {
+      return person ? person.name : '';
+   }
 
   onSubmit() {
     if(this.model.id === 0) {
@@ -43,6 +64,9 @@ export class TodoForm {
     public id: number,
     public title: string,
     public active: boolean,
-    public assigneeID?: number
+    public priority?: number,
+    public assignee?: Person,
   ) {  }
 }
+
+interface Person { id: number, name: string };
