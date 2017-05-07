@@ -9,6 +9,8 @@ import { TodoFormComponent } from './todo-form/todo-form.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MdButtonModule, MdInputModule, MdSlideToggleModule, 
   MdSelectModule, MdAutocompleteModule } from '@angular/material';
+import { DatepickerModule } from 'angular2-material-datepicker'
+
 
 import 'hammerjs';
 
@@ -27,7 +29,8 @@ import 'hammerjs';
     MdInputModule,
     MdSlideToggleModule,
     MdSelectModule,
-    MdAutocompleteModule
+    MdAutocompleteModule,
+    DatepickerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

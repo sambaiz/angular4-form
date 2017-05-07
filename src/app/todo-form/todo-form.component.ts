@@ -66,6 +66,7 @@ export class TodoForm {
     public active: boolean,
     public priority?: number,
     public assignee?: Person,
+    public deadline?: Date
   ) {  }
 }
 

@@ -38,6 +38,10 @@
     </div>
 
     <div class="form-item">
+      <material-datepicker placeholder="終了予定日" [(date)]="model.deadline"></material-datepicker>
+    </div>
+
+    <div class="form-item">
       <md-slide-toggle name="active" [(ngModel)]="model.active">
         有効にする
       </md-slide-toggle>
@@ -60,6 +64,7 @@
       <th>Active</th>
       <th>Priority</th>
       <th>Assignee</th>
+      <th>Deadline</th>
   </thead>
   <tbody>
     <tr li *ngFor="let todo of todos">
@@ -68,6 +73,7 @@
       <td>{{todo.active}}</td>
       <td>{{todo.priority}}</td>
       <td>{{todo.assignee.name}}</td>
+      <td>{{todo.deadline.toLocaleDateString()}}
       <td><button md-button (click)="onEdit(todo.id)">編集</button></td>
     </tr>
   </tbody>
